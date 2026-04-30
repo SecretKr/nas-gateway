@@ -13,11 +13,10 @@ REDIRECT_URL = os.getenv("REDIRECT_URL")
 
 nas_state = {
     "online": False,
-    "last_check": 0,
-    "wake_sent": False
+    "last_check": 0
 }
 
-CHECK_INTERVAL = 3  # seconds cache
+CHECK_INTERVAL = 3
 
 def check_nas():
     try:
@@ -28,13 +27,11 @@ def check_nas():
         return False
 
 def wake_nas():
-    if not nas_state["wake_sent"]:
-        subprocess.run([
-            "wakeonlan",
-            "-i", "255.255.255.255",
-            NAS_MAC
-        ])
-        nas_state["wake_sent"] = True
+    subprocess.run([
+        "wakeonlan",
+        "-i", "255.255.255.255",
+        NAS_MAC
+    ])
 
 def refresh_state():
     while True:
