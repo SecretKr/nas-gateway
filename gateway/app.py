@@ -57,16 +57,19 @@ def index():
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>NAS Starting</title>
     <style>
-        :root { --color-primary: #4a7cff; --color-secondary: #eef1f6; }
+        :root { 
+            --color-primary: #DFD0B8; 
+            --color-secondary: #222831; 
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { background: var(--color-secondary); font-family: sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .card { background: #fff; border-radius: 16px; padding: 48px; width: 350px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); text-align: center; }
-        .spinner { width: 40px; height: 40px; border: 3px solid #e4e8ef; border-top-color: var(--color-primary); border-radius: 50%; margin: 0 auto 24px; animation: spin 0.9s linear infinite; }
+        .card { background: #393E46; border-radius: 16px; padding: 48px; width: 350px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3); text-align: center; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #222831; border-top-color: var(--color-primary); border-radius: 50%; margin: 0 auto 24px; animation: spin 0.9s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        h1 { font-size: 19px; color: #111; margin-bottom: 8px; }
-        p { font-size: 14px; color: #7a8699; }
-        .status-dot { display: inline-block; width: 8px; height: 8px; background: #ffbc00; border-radius: 50%; margin-right: 5px; }
-    </style>
+        h1 { font-size: 19px; color: #FFFFFF; margin-bottom: 8px; }
+        p { font-size: 14px; color: #D1D5DB; display: flex; align-items: center; justify-content: center;}
+        .status-dot { display: inline-block; width: 8px; height: 8px; background: #DFD0B8; border-radius: 50%; margin-right: 5px; }
+        </style>
     </head>
     <body>
     <div class="card">

@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
-      - ./homebridge:/homebridge
+      - ~/nas-gateway-data/homebridge:/homebridge
 
   nas-gateway:
     build: ./gateway
@@ -16,3 +16,11 @@ services:
     network_mode: host
     env_file:
       - .env
+    
+  wol-server:
+    image: secretkr/wol-server:latest
+    container_name: wol-server
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ~/nas-gateway-data/wol-server:/app/data
