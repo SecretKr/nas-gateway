@@ -29,7 +29,11 @@ def check_nas():
 
 def wake_nas():
     if not nas_state["wake_sent"]:
-        subprocess.run(["wakeonlan", NAS_MAC])
+        subprocess.run([
+            "wakeonlan",
+            "-i", "255.255.255.255",
+            NAS_MAC
+        ])
         nas_state["wake_sent"] = True
 
 def refresh_state():
