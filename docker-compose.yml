@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  homebridge:
+    image: homebridge/homebridge:latest
+    container_name: homebridge
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./homebridge:/homebridge
+
+  nas-gateway:
+    build: ./gateway
+    container_name: nas-gateway
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - .env
