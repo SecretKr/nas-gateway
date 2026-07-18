@@ -185,9 +185,9 @@ def index():
             <h1>Gateway Portal</h1>
             <p class="subtitle">Select a destination below</p>
             <div class="btn-list">
+                <a href="/wake" class="btn btn-3">Home Server</a>
                 <a href="/redirect/1" class="btn btn-1">""" + CUSTOM_LABEL_1 + """</a>
                 <a href="/redirect/2" class="btn btn-2">""" + CUSTOM_LABEL_2 + """</a>
-                <a href="/wake" class="btn btn-3">NAS</a>
             </div>
         </div>
     </div>
@@ -269,7 +269,7 @@ def wake():
     <body>
     <div class="card">
         <div class="spinner"></div>
-        <h1>NAS is starting up</h1>
+        <h1>Home Server is booting up</h1>
         <p id="status-text"><span class="status-dot"></span>Checking connection...</p>
     </div>
 
