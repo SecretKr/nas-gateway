@@ -33,11 +33,33 @@ def check_nas():
         return False
 
 def wake_nas():
-    subprocess.run([
-        "wakeonlan",
-        "-i", "10.0.1.255",
-        NAS_MAC
-    ])
+    if not NAS_MAC:
+        print("[WoL] ERROR: NAS_MAC is not configured!", flush=True)
+        return
+
+    clean_mac = NAS_MAC.replace(":", "").replace("-", "").replace(".", "")
+    if len(clean_mac) != 12:
+        print(f"[WoL] ERROR: Invalid NAS_MAC address: {NAS_MAC}", flush=True)
+        return
+
+    print(f"[WoL] Sending magic packet for MAC {clean_mac}...", flush=True)
+
+    targets = ["255.255.255.255"]
+    if NAS_IP and len(NAS_IP.split(".")) == 4:
+        parts = NAS_IP.split(".")
+        targets.append(f"{parts[0]}.{parts[1]}.{parts[2]}.255")
+
+    magic_packet = b'\xff' * 6 + bytes.fromhex(clean_mac) * 16
+
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+            for target_ip in set(targets):
+                for port in [7, 9]:
+                    s.sendto(magic_packet, (target_ip, port))
+                    print(f"[WoL] Magic packet sent to {target_ip}:{port}", flush=True)
+    except Exception as e:
+        print(f"[WoL] ERROR sending magic packet: {e}", flush=True)
 
 def refresh_state():
     while True:
@@ -205,6 +227,7 @@ def redirect_2():
 
 @app.route("/wake")
 def wake():
+    print(f"[WoL] /wake endpoint accessed. NAS online state: {nas_state['online']}", flush=True)
     if not nas_state["online"]:
         wake_nas()
 
