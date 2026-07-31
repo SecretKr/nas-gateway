@@ -35,7 +35,7 @@ def check_nas():
 def wake_nas():
     subprocess.run([
         "wakeonlan",
-        "-i", "255.255.255.255",
+        "-i", "10.0.1.255",
         NAS_MAC
     ])
 
